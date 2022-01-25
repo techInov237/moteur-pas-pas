@@ -1,0 +1,21 @@
+
+#include <Stepper.h>
+int val; 
+const int nombres_pas=2000 ;
+Stepper moteur(nombres_pas, 8,10,9,11);// initialisation des broches
+
+void setup() {
+  moteur.setSpeed(20); // VITESSE DES PAS DU MOTEUR
+  Serial.begin(9600);  //moniteur serie
+   
+
+}
+
+void loop() {
+  val=analogRead(0);         // lecture de la broche A0 dans val
+  Serial.println(abs((val-512)/34)+1);         //lecture de convertion
+  moteur.setSpeed(abs((val-512)/34)+1);        //vitesse variable
+  moteur.step( -(val-512));                     // sens de rotation
+  delay(2);
+
+}
